@@ -1,0 +1,61 @@
+version: "3"
+
+services:
+  web:
+      build: ./config/dockerfiles/nginx
+      image: nginx
+      volumes:
+          - ./../website:/var/www/vhosts/website
+          - ./config/symfony-4-site.conf:/etc/nginx/conf.d/site.conf
+          - ./nginx/log:/var/log/nginx
+      links:
+          - php
+      container_name: web
+      expose:
+         - 80
+      environment:
+         VIRTUAL_HOST: ${VIRTUAL_HOST}
+      restart: on-failure:10
+
+  php:
+      build: ./config/dockerfiles/php/dev
+      image: php:7.2-fpm
+      volumes:
+          - ./../website:/var/www/vhosts/website
+          - ./profiler:/tmp/xdebug
+          - /etc/localtime:/etc/localtime
+      container_name: php
+      extra_hosts:
+          - "${VIRTUAL_HOST}:${NGINX_PROXY_IP}"
+      environment:
+          XDEBUG_CONFIG: remote_host=${NGINX_PROXY_IP}
+      working_dir: /var/www/vhosts/website/
+      restart: on-failure:10
+
+  mysql:
+      image: mysql:5.7
+      container_name: mysql
+      environment:
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        - MYSQL_DATABASE=${MYSQL_DATABASE}
+        - MYSQL_USER=${MYSQL_USER}
+        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      expose:
+        - 3306
+      ports:
+        - "3306:3306"
+      volumes:
+        - ./data-mysql:/var/lib/mysql
+
+  nginx-proxy:
+      image: jwilder/nginx-proxy
+      container_name: nginx-proxy
+      ports:
+        - "80:80"
+      volumes:
+        - /var/run/docker.sock:/tmp/docker.sock:ro
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
