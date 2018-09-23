@@ -32,9 +32,9 @@ services:
       working_dir: /var/www/vhosts/website/
       restart: on-failure:10
 
-  mysql8:
-      image: mysql:latest
-      container_name: mysql8
+  mysql:
+      image: mysql:5.7
+      container_name: mysql
       environment:
         - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
         - MYSQL_DATABASE=${MYSQL_DATABASE}
@@ -45,7 +45,7 @@ services:
       ports:
         - "3306:3306"
       volumes:
-        - ./data-mysql8:/var/lib/mysql
+        - ./data-mysql:/var/lib/mysql
 
   nginx-proxy:
       image: jwilder/nginx-proxy
