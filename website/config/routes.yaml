@@ -1,6 +1,9 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
-users:
+movies:
     type:     rest
-    resource: App\Controller\MovieController
+    resource: App\Controller\MoviesController
+#ratings:
+#    type:     rest
+#    resource: App\Controller\RatingsController
