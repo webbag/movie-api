@@ -105,3 +105,7 @@ DEV
 
 
 
+
+
+docker exec -it php bin/console doctrine:mapping:import App\\Entity annotation --path=src/Entity
+docker exec -it php bin/console make:entity --regenerate App
