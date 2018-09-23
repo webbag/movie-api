@@ -42,7 +42,7 @@ class Movies
      * @param int $id
      * @return MovieEntity|null
      */
-    public function getElement(int $id): ?MovieEntity
+    public function getElement(int $id): ?MovieElement
     {
         $result = $this->entityManager->getRepository(MovieEntity::class)->find($id);
 
