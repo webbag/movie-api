@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Services\Movies;
 use FOS\RestBundle\Controller\FOSRestController;
+use Symfony\Component\HttpFoundation\Request;
 
 class MoviesController extends FOSRestController
 {
@@ -14,13 +15,19 @@ class MoviesController extends FOSRestController
     protected $movies;
 
     /**
+     * @var Request
+     */
+    protected $request;
+
+    /**
      * MoviesController constructor.
      *
      * @param Movies $movies
      */
-    public function __construct(Movies $movies)
+    public function __construct(Movies $movies, Request $request)
     {
         $this->movies = $movies;
+        $this->request = $request;
     }
 
     public function getMoviesAction()
@@ -30,9 +37,20 @@ class MoviesController extends FOSRestController
         return $this->handleView($this->view($dataMovies, 200));
     }
 
-    public function getMovieAction($id)
+    public function getMovieAction($movieId)
     {
-        $dataMovies = $this->movies->getElement($id);
+        $dataMovies = $this->movies->getElement($movieId);
+
+        return $this->handleView($this->view($dataMovies, 200));
+    }
+
+    public function postMoviesRatingAction($movieId)
+    {
+
+        $this->request->request->get('rating');
+
+        $this->movies->createRating($movieId);
+        $dataMovies = $this->movies->getElement($movieId);
 
         return $this->handleView($this->view($dataMovies, 200));
     }

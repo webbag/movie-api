@@ -48,19 +48,19 @@ class Rating
         return $this->raRating;
     }
 
-    public function setRaRating(?int $raRating): self
+    public function setRaRating(int $raRating): self
     {
         $this->raRating = $raRating;
 
         return $this;
     }
 
-    public function getMovieMo(): ?Movie
+    public function getMovieMo(): Movie
     {
         return $this->movieMo;
     }
 
-    public function setMovieMo(?Movie $movieMo): self
+    public function setMovieMo(Movie $movieMo): self
     {
         $this->movieMo = $movieMo;
 
