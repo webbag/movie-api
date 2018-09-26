@@ -15,8 +15,6 @@ class MoviesController extends FOSRestController
     protected $movies;
 
     /**
-     * MoviesController constructor.
-     *
      * @param Movies $movies
      */
     public function __construct(Movies $movies)
@@ -24,26 +22,49 @@ class MoviesController extends FOSRestController
         $this->movies = $movies;
     }
 
-    public function getMoviesAction()
+    /**
+     * @return Response
+     */
+    public function getMoviesAction(): Response
     {
-        $response = $this->movies->getList();
-
-        return $this->handleView($this->view($response, Response::HTTP_OK));
-    }
-
-    public function getMovieAction($movieId)
-    {
-        $response = $this->movies->getElement($movieId);
-
-        return $this->handleView($this->view($response, Response::HTTP_OK));
-    }
-
-    public function postMoviesRatingAction($movieId, Request $request)
-    {
-        $code = Response::HTTP_CREATED;
         try {
+            $code = Response::HTTP_OK;
+            $response = $this->movies->getList();
+        } catch (\Exception $e) {
+            $response = ['message' => $e->getMessage()];
+            $code = Response::HTTP_NOT_FOUND;
+        }
+        return $this->handleView($this->view($response, $code));
+    }
+
+    /**
+     * @param $movieId int
+     * @return Response
+     */
+    public function getMovieAction($movieId): Response
+    {
+        try {
+            $code = Response::HTTP_OK;
+            $response = $this->movies->setMovie((int)$movieId)->getElement();
+        } catch (\Exception $e) {
+            $response = ['message' => $e->getMessage()];
+            $code = Response::HTTP_NOT_FOUND;
+        }
+        return $this->handleView($this->view($response, $code));
+    }
+
+    /**
+     * @param $movieId int
+     * @param Request $request
+     * @return Response
+     */
+    public function postMoviesRatingAction($movieId, Request $request): Response
+    {
+        try {
+            $code = Response::HTTP_CREATED;
+            $movieId = (int)$movieId;
             $ratingNumber = $this->validationRating($request);
-            $this->movies->createRating($movieId, $ratingNumber);
+            $this->movies->setMovie($movieId)->createRating($ratingNumber);
             $response = $this->movies->getElement($movieId);
         } catch (\Exception $e) {
             $response = ['message' => $e->getMessage()];
@@ -53,7 +74,12 @@ class MoviesController extends FOSRestController
         return $this->handleView($this->view($response, $code));
     }
 
-    private function validationRating($request)
+    /**
+     * @param Request $request
+     * @return mixed
+     * @throws \Exception
+     */
+    private function validationRating(Request $request): int
     {
         $ratingNumber = filter_var(
             $request->get('rating'),
@@ -69,5 +95,4 @@ class MoviesController extends FOSRestController
 
         return $ratingNumber;
     }
-
 }

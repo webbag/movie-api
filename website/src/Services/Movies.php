@@ -10,16 +10,15 @@ use Doctrine\ORM\EntityManagerInterface;
 
 class Movies
 {
-
     /**
      * @var EntityManagerInterface
      */
     protected $entityManager;
 
     /**
-     * @var array
+     * @var MovieEntity;
      */
-    protected $list;
+    protected $movie;
 
     /**
      * @param EntityManagerInterface $entityManager
@@ -43,30 +42,63 @@ class Movies
      * @param int $movieId
      * @return MovieEntity|null
      */
-    public function getElement(int $movieId): ?MovieElement
+    public function getElement(): ?MovieElement
     {
-        $result = $this->getMovie($movieId);
+        $result = $this->getMovie();
 
         return $result ? new MovieElement($result) : null;
     }
 
-    protected function getMovie(int $movieId): MovieEntity
+    /**
+     * @return MovieEntity
+     */
+    protected function getMovie(): MovieEntity
     {
-        return $this->entityManager->getRepository(MovieEntity::class)->find($movieId);
+        return $this->movie;
     }
 
     /**
-     * @param int $movieId
-     * @param int $ratingNumber
+     * @param $movieId int
+     * @return Movies
      */
-    public function createRating(int $movieId, int $ratingNumber)
+    public function setMovie(int $movieId): self
     {
+        $this->movie = $this->entityManager->getRepository(MovieEntity::class)->find($movieId);
+
+        //$this->averageRatingMovie();
+
+        return $this;
+    }
+
+    /**
+     * @param $ratingNumber
+     * @throws \Exception
+     */
+    public function createRating($ratingNumber)
+    {
+        if (empty($this->getMovie())) {
+            throw new \Exception('Move entity not exists');
+        }
+
         $rating = new Rating();
-        $rating->setMovieMo($this->getMovie($movieId));
+        $rating->setMovieMo($this->getMovie());
         $rating->setRaRating($ratingNumber);
 
         $this->entityManager->persist($rating);
         $this->entityManager->flush();
+    }
+
+    protected function averageRatingMovie()
+    {
+        /**
+         * @var $rating Rating
+         */
+        $rating = $this->entityManager->getRepository(Rating::class)->findBy(['movieMo' => $this->getMovie()]);
+
+        // todo
+        // sum / 10
+
+        var_dump(count($rating)/10);
     }
 
 }
