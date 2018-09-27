@@ -1,0 +1,38 @@
+version: "3"
+
+services:
+  web-movie:
+      build: ./config/dockerfiles/nginx
+      image: nginx
+      volumes:
+          - ./../website:/var/www/vhosts/website
+          - ./config/symfony-4-site.prod.conf:/etc/nginx/conf.d/site.conf
+          - ./nginx/log:/var/log/nginx
+      links:
+          - php-movie
+      container_name: web-movie
+      expose:
+         - 80
+      environment:
+         VIRTUAL_HOST: movie-api.webbag.pl
+      restart: on-failure:10
+
+  php-movie:
+      build: ./config/dockerfiles/php/dev
+      image: php:7.2-fpm
+      volumes:
+          - ./../website:/var/www/vhosts/website
+          - ./profiler:/tmp/xdebug
+          - /etc/localtime:/etc/localtime
+      container_name: php-movie
+      extra_hosts:
+          - "movie-api.webbag.pl:145.239.87.226"
+      environment:
+          XDEBUG_CONFIG: remote_host=145.239.87.226
+      working_dir: /var/www/vhosts/website/
+      restart: on-failure:10
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
