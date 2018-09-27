@@ -15,7 +15,12 @@
         "symfony/yaml": "*"
     },
     "require-dev": {
-        "symfony/dotenv": "*"
+        "doctrine/doctrine-fixtures-bundle": "^3.0",
+        "symfony/browser-kit": "*",
+        "symfony/css-selector": "*",
+        "symfony/dotenv": "*",
+        "symfony/phpunit-bridge": "*",
+        "symfony/test-pack": "^1.0"
     },
     "config": {
         "preferred-install": {
