@@ -7,7 +7,7 @@ use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class ApiMoviesController extends FOSRestController
+class MoviesController extends FOSRestController
 {
     /**
      * @var Movies
