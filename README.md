@@ -1,26 +1,15 @@
 ## My solution to the task: MOVIE API
 
 
-
-Docker containers: PHP, Nginx, MySql
-
-Symfony 4.1
-
+Docker containers: Nginx proxy, Nginx, PHP, MySql
+Symfony 4.1 - friendsofsymfony/rest-bundle, symfony/serializer-pack
 Postman for API requests
-    
 UnitPHP Tests 
 
-
-
-
-![Alt text](https://github.com/webbag/movie-api/blob/master/_develop/docker-ps.png?raw=true "Model DB")
-
-
-
+![Alt text](https://github.com/webbag/movie-api/blob/master/_develop/docker-ps.png?raw=true "Docker containers")
 
 
 ### Install 
-
 Check version your docker
 ```
 docker -v
@@ -87,7 +76,6 @@ docker exec -it php php app/console doctrine:schema:update --force
 docker exec -it php php app/console doctrine:fixtures:load
 ```
 
-
 #### Entrance to the container
 *  ```docker exec -it php bash ```
 *  ```docker exec -it web bash ```
@@ -125,8 +113,11 @@ DEV
 ![Alt text](https://github.com/webbag/movie-api/blob/master/_develop/movie-api.png?raw=true "Model DB")
 
 
+#### Help commends Symfony: 
 
-
-
+Generate entity by DB
+``` 
 docker exec -it php bin/console doctrine:mapping:import App\\Entity annotation --path=src/Entity
 docker exec -it php bin/console make:entity --regenerate App
+``` 
+
