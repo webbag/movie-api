@@ -35,6 +35,11 @@ class Movie
      */
     private $moDescription;
 
+    /**
+     * @var int|null
+     */
+    protected $averageRating;
+
     public function getMoId(): ?int
     {
         return $this->moId;
@@ -64,5 +69,16 @@ class Movie
         return $this;
     }
 
+    public function getAverageRating(): ?int
+    {
+        return $this->averageRating;
+    }
+
+    public function setAverageRating($averageRating): self
+    {
+        $this->averageRating = $averageRating;
+
+        return $this;
+    }
 
 }

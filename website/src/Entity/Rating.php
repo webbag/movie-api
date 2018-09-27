@@ -66,6 +66,5 @@ class Rating
 
         return $this;
     }
-
-
+    
 }

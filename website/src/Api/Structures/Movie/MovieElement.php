@@ -26,9 +26,9 @@ class MovieElement
      * todo calculate
      * @return int
      */
-    public function getAverageRating():int
+    public function getAverageRating():?int
     {
-        return 10;
+        return $this->movie->getAverageRating();
     }
 
 }

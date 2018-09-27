@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\Api\Structures\Movie\MovieElement;
 use App\Api\Structures\Movie\MoviesList;
+use App\Entity\Movie;
 use App\Entity\Movie as MovieEntity;
 use App\Entity\Rating;
 use Doctrine\ORM\EntityManagerInterface;
@@ -35,11 +36,15 @@ class Movies
     {
         $result = $this->entityManager->getRepository(MovieEntity::class)->findAll();
 
+        foreach ($result as $key => $movie) {
+            $movie->setAverageRating($this->averageRatingMovie($movie));
+            $result[$key] = $movie;
+        }
+
         return $result ? new MoviesList($result) : null;
     }
 
     /**
-     * @param int $movieId
      * @return MovieEntity|null
      */
     public function getElement(): ?MovieElement
@@ -65,7 +70,7 @@ class Movies
     {
         $this->movie = $this->entityManager->getRepository(MovieEntity::class)->find($movieId);
 
-        //$this->averageRatingMovie();
+        $this->movie->setAverageRating($this->averageRatingMovie($this->movie));
 
         return $this;
     }
@@ -88,17 +93,17 @@ class Movies
         $this->entityManager->flush();
     }
 
-    protected function averageRatingMovie()
+    protected function averageRatingMovie(MovieEntity $movie)
     {
         /**
          * @var $rating Rating
          */
-        $rating = $this->entityManager->getRepository(Rating::class)->findBy(['movieMo' => $this->getMovie()]);
+        $rating = $this->entityManager->getRepository(Rating::class)->findBy(['movieMo' => $movie]);
+        $sum = 0;
+        foreach ($rating as $item) {
+            $sum = $sum + $item->getRaRating();
+        }
 
-        // todo
-        // sum / 10
-
-        var_dump(count($rating)/10);
+        return $sum > 0 ? round($sum / count($rating)) : null;
     }
-
 }
