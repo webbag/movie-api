@@ -6,11 +6,11 @@ Postman for API requests
 
 UnitPHP Tests 
 
-Docker containers: Nginx proxy, Nginx, PHP, MySql:
+Docker containers: Nginx proxy, Nginx, PHP, MySQL:
 ![Alt text](https://github.com/webbag/movie-api/blob/master/_develop/docker-ps.png?raw=true "Docker containers")
 
 
-Schema MySql:
+Schema MySQL:
 ![Alt text](https://github.com/webbag/movie-api/blob/master/_develop/movie-api.png?raw=true "Model DB")
 
 
@@ -84,7 +84,7 @@ docker exec -it php php app/console doctrine:fixtures:load
 #### Entrance to the container
 *  ```docker exec -it php bash ```
 *  ```docker exec -it web bash ```
-*  ```docker exec -it mysql bash ```
+*  ```docker exec -it MySQL bash ```
  
 #### Diagnosing containers
 
@@ -104,7 +104,7 @@ docker images -f dangling=true
 docker rmi $(docker images -q -f dangling=true)
 ``` 
 
-### MYSQL
+### MySQL
 
 DEV
 * host:       movie-api.lh
