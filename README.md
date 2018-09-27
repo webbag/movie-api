@@ -42,6 +42,18 @@ https://www.getpostman.com/collections/203e3a856064f6ec2417
 #### Adding rating for one movie
 * POST http://movie-api.webbag.pl/movies/20/ratings?rating=10
 
+
+# TODO in the future
+
+
+### Install HATEOAS REST
+* composer require arte/hateoas-bundle 
+
+### Install REDIS
+* composer require symfony-bundles/redis-bundle
+
+
+
 ### Install 
 Check version your docker
 ```
