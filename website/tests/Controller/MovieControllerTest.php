@@ -6,6 +6,12 @@ namespace App\Tests\Controller;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ * Class MovieControllerTest.
+ * Init  docker exec -it php bin/phpunit.
+ *
+ * @package App\Tests\Controller
+ */
 class MovieControllerTest extends WebTestCase
 {
 
@@ -28,7 +34,14 @@ class MovieControllerTest extends WebTestCase
     public function testMoviesRatings()
     {
         $client = static::createClient();
-        $client->request('POST', '/movies/401/ratings?rating=9');
+        $client->request('GET', '/movies');
+        $element = json_decode($client->getResponse()->getContent(), true);
+
+        $movieId = $element['list'][0]['id'] ?? '';
+        $rating = rand(0, 10);
+
+        $client = static::createClient();
+        $client->request('POST', '/movies/' . $movieId . '/ratings?rating=' . $rating);
 
         $this->assertEquals(Response::HTTP_CREATED, $client->getResponse()->getStatusCode());
     }
