@@ -1,19 +1,51 @@
-## My solution to the task: MOVIE API
+## My solution to the task: Movie-API
 
 * Symfony 4.1 -  use friendsofsymfony/rest-bundle and symfony/serializer-pack and a few others ...
 * Postman for API requests
 * UnitPHP Tests 
 
-##### Docker containers: Nginx proxy, Nginx, PHP, MySQL:
+#### Docker containers: Nginx proxy, Nginx, PHP, MySQL:
 ![Alt text](https://github.com/webbag/movie-api/blob/master/_develop/docker-ps.png?raw=true "Docker containers")
 
 
-##### Schema MySQL:
+#### Schema MySQL:
 ![Alt text](https://github.com/webbag/movie-api/blob/master/_develop/movie-api.png?raw=true "Model DB")
 
 
-##### Routing:
+#### Routing:
 ![Alt text](https://github.com/webbag/movie-api/blob/master/_develop/routing.png?raw=true "Model DB")
+
+#### Help commends Symfony: 
+
+
+* Load fixtures
+``` 
+ docker exec -it php bin/console doctrine:fixtures:load
+``` 
+
+* Debug router
+``` 
+docker exec -it php-movie bin/console debug:router
+``` 
+
+* Important show tests
+``` 
+ docker exec -it php bin/phpunit
+``` 
+
+## Examples
+
+### Postmen collection
+https://www.getpostman.com/collections/203e3a856064f6ec2417
+
+##### List movies 
+* GET  http://movie-api.webbag.pl/movies
+
+##### Gets one movie
+* GET  http://movie-api.webbag.pl/movies/20 
+
+##### Adding rating for one movie
+* POST http://movie-api.webbag.pl/movies/20/ratings?rating=10
 
 ### Install 
 Check version your docker
@@ -75,12 +107,12 @@ docker exec -it php composer install
 ```
 docker exec -it php php app/console doctrine:schema:update --force
 ```
-
-* Doctrine fixtures load
-
-```
-docker exec -it php php app/console doctrine:fixtures:load
-```
+    
+* Generate entity by DB
+``` 
+docker exec -it php bin/console doctrine:mapping:import App\\Entity annotation --path=src/Entity
+docker exec -it php bin/console make:entity --regenerate App
+``` 
 
 #### Entrance to the container
 *  ```docker exec -it php bash ```
@@ -114,27 +146,3 @@ DEV
 * pass:       movie-api
 * pass_root:  movie-api
 * db:         movie-api
-
-
-#### Help commends Symfony: 
-
-* Generate entity by DB
-``` 
-docker exec -it php bin/console doctrine:mapping:import App\\Entity annotation --path=src/Entity
-docker exec -it php bin/console make:entity --regenerate App
-``` 
-
-* Debug router
-``` 
-docker exec -it php-movie bin/console debug:router
-``` 
-
-* Load fixtures
-``` 
- docker exec -it php bin/console doctrine:fixtures:load
-``` 
-
-* Important - tests
-``` 
- docker exec -it php bin/phpunit
-``` 
