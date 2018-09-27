@@ -126,3 +126,7 @@ docker exec -it php bin/console doctrine:mapping:import App\\Entity annotation -
 docker exec -it php bin/console make:entity --regenerate App
 ``` 
 
+Debug router
+``` 
+docker exec -it php-movie bin/console debug:router
+``` 
