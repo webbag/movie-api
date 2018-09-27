@@ -1,3 +1,6 @@
+## My solution to the task: MOVIE API
+
+
 ### Install 
 
 Check version your docker
@@ -101,7 +104,7 @@ DEV
 * db:         movie-api
 
 
-![Alt text](https://github.com/webbag/movie-api/blob/master/_develop/database-movie-api-structure.png?raw=true "Model DB")
+![Alt text](https://github.com/webbag/movie-api/blob/master/_develop/movie-api.png?raw=true "Model DB")
 
 
 
