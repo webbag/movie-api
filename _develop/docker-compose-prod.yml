@@ -32,6 +32,20 @@ services:
       working_dir: /var/www/vhosts/website/
       restart: on-failure:10
 
+  mysql:
+      image: mysql:5.7
+      container_name: mysql
+      environment:
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        - MYSQL_DATABASE=${MYSQL_DATABASE}
+        - MYSQL_USER=${MYSQL_USER}
+        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      expose:
+        - 3306
+      ports:
+        - "3307:3306"
+      volumes:
+        - ./data-mysql:/var/lib/mysql
 networks:
   default:
     external:
