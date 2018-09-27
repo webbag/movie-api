@@ -1,9 +1,7 @@
 ## My solution to the task: MOVIE API
 
 * Symfony 4.1 -  use friendsofsymfony/rest-bundle and symfony/serializer-pack and a few others ...
-
 * Postman for API requests
-
 * UnitPHP Tests 
 
 ##### Docker containers: Nginx proxy, Nginx, PHP, MySQL:
@@ -120,13 +118,23 @@ DEV
 
 #### Help commends Symfony: 
 
-Generate entity by DB
+* Generate entity by DB
 ``` 
 docker exec -it php bin/console doctrine:mapping:import App\\Entity annotation --path=src/Entity
 docker exec -it php bin/console make:entity --regenerate App
 ``` 
 
-Debug router
+* Debug router
 ``` 
 docker exec -it php-movie bin/console debug:router
+``` 
+
+* Load fixtures
+``` 
+ docker exec -it php bin/console doctrine:fixtures:load
+``` 
+
+* Important - tests
+``` 
+ docker exec -it php bin/phpunit
 ``` 
