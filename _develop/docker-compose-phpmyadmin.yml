@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  phpmyadmin:
+      image: phpmyadmin/phpmyadmin
+      container_name: phpmyadmin
+      depends_on:
+        - chemia-mysql
+      expose:
+        - 80
+      environment:
+       - VIRTUAL_HOST=phpmyadmin.webbag.pl
+       - PMA_ARBITRARY=1
+      volumes:
+       - /sessions
+      restart: on-failure:10
+
+networks:
+  default:
+    external:
+      name: nginx-proxy
