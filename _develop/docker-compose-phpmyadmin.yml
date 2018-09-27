@@ -4,8 +4,6 @@ services:
   phpmyadmin:
       image: phpmyadmin/phpmyadmin
       container_name: phpmyadmin
-      depends_on:
-        - chemia-mysql
       expose:
         - 80
       environment:
