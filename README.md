@@ -1,18 +1,21 @@
 ## My solution to the task: MOVIE API
 
-Symfony 4.1 -  use friendsofsymfony/rest-bundle and symfony/serializer-pack and a few others ...
+* Symfony 4.1 -  use friendsofsymfony/rest-bundle and symfony/serializer-pack and a few others ...
 
-Postman for API requests
+* Postman for API requests
 
-UnitPHP Tests 
+* UnitPHP Tests 
 
-Docker containers: Nginx proxy, Nginx, PHP, MySQL:
+##### Docker containers: Nginx proxy, Nginx, PHP, MySQL:
 ![Alt text](https://github.com/webbag/movie-api/blob/master/_develop/docker-ps.png?raw=true "Docker containers")
 
 
-Schema MySQL:
+##### Schema MySQL:
 ![Alt text](https://github.com/webbag/movie-api/blob/master/_develop/movie-api.png?raw=true "Model DB")
 
+
+##### Routing:
+![Alt text](https://github.com/webbag/movie-api/blob/master/_develop/routing.png?raw=true "Model DB")
 
 ### Install 
 Check version your docker
