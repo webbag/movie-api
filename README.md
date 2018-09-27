@@ -1,22 +1,17 @@
 ## My solution to the task: Movie-API
 
-* Symfony 4.1 -  use friendsofsymfony/rest-bundle and symfony/serializer-pack and a few others ...
-* Postman for API requests
-* UnitPHP Tests 
+* Symfony 4.1 - use friendsofsymfony/rest-bundle and symfony/serializer-pack and a few others ...
 
 #### Docker containers: Nginx proxy, Nginx, PHP, MySQL:
 ![Alt text](https://github.com/webbag/movie-api/blob/master/_develop/docker-ps.png?raw=true "Docker containers")
 
-
 #### Schema MySQL:
 ![Alt text](https://github.com/webbag/movie-api/blob/master/_develop/movie-api.png?raw=true "Model DB")
-
 
 #### Routing:
 ![Alt text](https://github.com/webbag/movie-api/blob/master/_develop/routing.png?raw=true "Model DB")
 
 #### Help commends Symfony: 
-
 
 * Load fixtures
 ``` 
@@ -38,13 +33,13 @@ docker exec -it php-movie bin/console debug:router
 ### Postmen collection
 https://www.getpostman.com/collections/203e3a856064f6ec2417
 
-##### List movies 
+#### List movies 
 * GET  http://movie-api.webbag.pl/movies
 
-##### Gets one movie
+#### Gets one movie
 * GET  http://movie-api.webbag.pl/movies/20 
 
-##### Adding rating for one movie
+#### Adding rating for one movie
 * POST http://movie-api.webbag.pl/movies/20/ratings?rating=10
 
 ### Install 
