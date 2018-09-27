@@ -1,6 +1,24 @@
 ## My solution to the task: MOVIE API
 
 
+
+Docker containers: PHP, Nginx, MySql
+
+Symfony 4.1
+
+Postman for API requests
+    
+UnitPHP Tests 
+
+
+
+
+![Alt text](https://github.com/webbag/movie-api/blob/master/_develop/docker-ps.png?raw=true "Model DB")
+
+
+
+
+
 ### Install 
 
 Check version your docker
