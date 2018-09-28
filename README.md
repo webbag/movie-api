@@ -152,3 +152,6 @@ DEV
 
 ### Install REDIS
 * composer require symfony-bundles/redis-bundle
+
+### Install Pagination
+* composer require kitlabs/kit-paginator-bundle
